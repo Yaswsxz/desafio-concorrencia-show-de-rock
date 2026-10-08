@@ -58,25 +58,25 @@ LONDRINA<br>
 
 ## SUMÁRIO
 
-INTRODUÇÃO
+[INTRODUÇÃO](#introdução)
 
-1. DESENVOLVIMENTO
-   - 1.1. Síntese Teórica
-     - 1.1.1. Diferença entre Processo e Thread
-     - 1.1.2. Por que criar threads é mais leve do que criar processos
-     - 1.1.3. Threads em Modo Usuário e em Modo Núcleo
-   - 1.2. Diagnóstico do Problema
-     - 1.2.1. O que é uma Condição de Corrida
-     - 1.2.2. O caso do Assento A-15
-     - 1.2.3. Consequências para o sistema de ingressos
-   - 1.3. A Solução Arquitetural
-     - 1.3.1. Região Crítica e Exclusão Mútua
-     - 1.3.2. Como funciona no Assento A-15
-     - 1.3.3. Cuidados de arquitetura para 100.000 usuários
+[1. DESENVOLVIMENTO](#1-desenvolvimento)
+- [1.1. Síntese Teórica](#11-síntese-teórica)
+  - [1.1.1. Diferença entre Processo e Thread](#111-diferença-entre-processo-e-thread)
+  - [1.1.2. Por que criar threads é mais leve do que criar processos](#112-por-que-criar-threads-é-mais-leve-do-que-criar-processos)
+  - [1.1.3. Threads em Modo Usuário e em Modo Núcleo](#113-threads-em-modo-usuário-e-em-modo-núcleo-kernel)
+- [1.2. Diagnóstico do Problema](#12-diagnóstico-do-problema-o-gargalo)
+  - [1.2.1. O que é uma Condição de Corrida](#121-o-que-é-uma-condição-de-corrida)
+  - [1.2.2. O caso do Assento A-15](#122-o-caso-do-assento-a-15)
+  - [1.2.3. Consequências para o sistema de ingressos](#123-consequências-para-o-sistema-de-ingressos)
+- [1.3. A Solução Arquitetural](#13-a-solução-arquitetural)
+  - [1.3.1. Região Crítica e Exclusão Mútua](#131-região-crítica-e-exclusão-mútua)
+  - [1.3.2. Como funciona no Assento A-15](#132-como-funciona-no-assento-a-15)
+  - [1.3.3. Cuidados de arquitetura para 100.000 usuários](#133-cuidados-de-arquitetura-para-100000-usuários)
 
-2. CONCLUSÃO
+[2. CONCLUSÃO](#2-conclusão)
 
-REFERÊNCIAS BIBLIOGRÁFICAS
+[REFERÊNCIAS BIBLIOGRÁFICAS](#referências-bibliográficas)
 
 ---
 
@@ -264,7 +264,7 @@ OLIVEIRA, Rômulo Silva de; CARISSIMI, Alexandre da Silva; TOSCANI, Simão Sirin
 
 <br><br>
 
-ROCHA, Leonardo. **Sistemas operacionais**: o modelo de processos. Londrina: UniCesumar, 2026. Material de aula (Aula 7), slides.
+ROCHA, Leonardo. **Sistemas operacionais**: o modelo de processos. Londrina: UniCesumar, 2026. Material de aula (Aula 7), slides. Disponível em: https://classroom.google.com/c/ODcxMzY4NzY5OTM3/m/ODg5NTQxNTkwMzgw/details. Acesso em: 8 out. 2026.
 
 <br><br>
 
