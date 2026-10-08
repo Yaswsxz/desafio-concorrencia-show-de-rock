@@ -9,7 +9,7 @@ EDUCAÇÃO PRESENCIAL E A DISTÂNCIA
 
 <div align="center">
 
-YASMIN FERNANDA DE CARVALHO – R.A. [25061121-2]
+YASMIN FERNANDA DE CARVALHO – R.A. 25061121-2
 
 <br><br><br><br><br><br>
 
@@ -26,8 +26,8 @@ LONDRINA<br>
 
 <div align="center">
 
-YASMIN FERNANDA DE CARVALHO – R.A. [25061121-2]
-add
+YASMIN FERNANDA DE CARVALHO – R.A. 25061121-2
+
 <br><br><br>
 
 **O CAOS DO SHOW DE ROCK: PROCESSOS, THREADS E CONCORRÊNCIA EM UM SISTEMA DE VENDA DE INGRESSOS**
@@ -40,7 +40,7 @@ add
 
 Desafio Prático de Sala de Aula Invertida<br>
 (Encontro 7 – Arquitetura e Concorrência),<br>
-apresentado ao Curso de [NOME DO CURSO]<br>
+apresentado ao Curso de Engenharia de Software<br>
 para obtenção parcial de nota semestral.
 
 </div>
@@ -96,9 +96,9 @@ A justificativa está no impacto real do tema: falhas de concorrência em sistem
 
 #### 1.1.1. Diferença entre Processo e Thread
 
-Um **processo** é um programa em execução. Ele não é só o código: o sistema operacional reserva para ele um conjunto próprio de recursos, como o espaço de endereçamento (código, dados, heap e pilha), arquivos abertos, permissões e informações de controle guardadas no Bloco de Controle de Processo (PCB) (TANENBAUM; BOS, 2016). Cada processo é isolado dos demais, ou seja, um processo não enxerga diretamente a memória do outro.
+Um **processo** é um programa em execução. Ele não é só o código: o sistema operacional reserva para ele um conjunto próprio de recursos, como o espaço de endereçamento (código, dados, heap e pilha), arquivos abertos, permissões e informações de controle guardadas no Bloco de Controle de Processo (PCB) (TANENBAUM; BOS, 2015). Cada processo é isolado dos demais, ou seja, um processo não enxerga diretamente a memória do outro.
 
-Uma **thread** é uma linha de execução dentro de um processo. Um mesmo processo pode ter várias threads rodando ao mesmo tempo, e todas elas compartilham os recursos desse processo, como memória, arquivos abertos e variáveis globais. O que cada thread tem de exclusivo é apenas o necessário para executar de forma independente: seu contador de programa, seus registradores e sua própria pilha (SILBERSCHATZ; GALVIN; GAGNE, 2015).
+Uma **thread** é uma linha de execução dentro de um processo. Um mesmo processo pode ter várias threads rodando ao mesmo tempo, e todas elas compartilham os recursos desse processo, como memória, arquivos abertos e variáveis globais. O que cada thread tem de exclusivo é apenas o necessário para executar de forma independente: seu contador de programa, seus registradores e sua própria pilha (SILBERSCHATZ; GALVIN; GAGNE, 2018). Por compartilharem o mesmo espaço de endereçamento, as threads são menos independentes entre si do que os processos (ROCHA, 2026).
 
 Uma forma simples de visualizar: o processo é a "empresa", com prédio, equipamentos e arquivos; as threads são os "funcionários" trabalhando dentro do mesmo prédio, usando os mesmos recursos, cada um executando a sua tarefa.
 
@@ -106,13 +106,13 @@ Uma forma simples de visualizar: o processo é a "empresa", com prédio, equipam
 
 Para atender 100.000 usuários simultâneos, criar um processo novo para cada acesso seria muito custoso. Ao criar um processo, o sistema operacional precisa montar um novo espaço de endereçamento, configurar tabelas de páginas, criar um novo PCB e copiar ou mapear recursos. Além disso, a troca de contexto entre processos é cara, porque envolve trocar o mapeamento de memória e normalmente invalidar entradas da TLB (o cache de traduções de endereço), o que deixa os primeiros acessos à memória mais lentos depois da troca (MACHADO; MAIA, 2013).
 
-Já as threads de um mesmo processo **compartilham o mesmo espaço de endereçamento**. Por isso, criar uma thread exige basicamente alocar uma pilha e uma estrutura pequena de controle, sem duplicar a memória, e a troca de contexto entre threads do mesmo processo também é mais barata (CAVALHEIRO; BALDASSIN; DU BOIS, 2025). Outra vantagem é a comunicação: como as threads enxergam a mesma memória, elas trocam dados diretamente, sem precisar de mecanismos de comunicação entre processos, como pipes ou sockets (AKITA, 2019b).
+Já as threads de um mesmo processo **compartilham o mesmo espaço de endereçamento**. Por isso, criar uma thread exige basicamente alocar uma pilha e uma estrutura pequena de controle, sem duplicar a memória, e a troca de contexto entre threads do mesmo processo também é mais barata (CAVALHEIRO; BALDASSIN; DU BOIS, 2025). Em algumas situações, criar e destruir threads chega a ser até 100 vezes mais rápido do que fazer o mesmo com processos (ROCHA, 2026). Outra vantagem é a comunicação: como as threads enxergam a mesma memória, elas trocam dados diretamente, sem precisar de mecanismos de comunicação entre processos, como pipes ou sockets (AKITA, 2019b).
 
 No caso do show, isso significa que o servidor consegue atender muito mais requisições com o mesmo hardware usando threads. Na prática, ainda se usa um **pool de threads** (um conjunto fixo de threads reaproveitadas), porque mesmo threads têm custo, e criar 100.000 delas de uma vez também esgotaria a memória.
 
 #### 1.1.3. Threads em Modo Usuário e em Modo Núcleo (Kernel)
 
-**Threads de usuário** são criadas e gerenciadas por uma biblioteca no espaço do usuário, sem que o kernel saiba que elas existem. Para o sistema operacional, o processo inteiro parece ter uma única linha de execução (FERRAZ, 2015).
+**Threads de usuário** são criadas e gerenciadas por uma biblioteca no espaço do usuário, sem que o kernel saiba que elas existem. Para o sistema operacional, o processo inteiro parece ter uma única linha de execução: o núcleo escolhe um processo e é o próprio processo, por meio da biblioteca, que escolhe qual thread vai executar (FERRAZ, 2015; ROCHA, 2026).
 
 - Vantagens: criação e troca entre threads muito rápidas, pois não exigem chamadas ao sistema; o escalonamento pode ser personalizado pela aplicação.
 - Desvantagens: se uma thread fizer uma chamada bloqueante (como ler do disco ou da rede), o kernel bloqueia o processo inteiro, e todas as outras threads param junto. Também não aproveitam múltiplos núcleos de CPU, já que o kernel enxerga só um fluxo de execução.
@@ -122,13 +122,13 @@ No caso do show, isso significa que o servidor consegue atender muito mais requi
 - Vantagens: se uma thread bloqueia, o kernel pode executar outra do mesmo processo; várias threads podem rodar em paralelo em núcleos diferentes.
 - Desvantagens: criação e troca são mais caras, pois envolvem chamadas ao sistema e passagem para o modo núcleo.
 
-Existem modelos que relacionam os dois tipos: **muitos-para-um** (várias threads de usuário em uma de kernel), **um-para-um** (cada thread de usuário corresponde a uma de kernel, modelo usado pelo Linux e pelo Windows) e **muitos-para-muitos** (várias threads de usuário distribuídas entre várias de kernel) (SILBERSCHATZ; GALVIN; GAGNE, 2015). Para um servidor de ingressos que faz muitas operações de rede e banco de dados, threads de kernel ou modelos híbridos são mais adequados, porque uma requisição esperando o banco não trava as outras.
+Existem modelos que relacionam os dois tipos: **muitos-para-um** (várias threads de usuário em uma de kernel), **um-para-um** (cada thread de usuário corresponde a uma de kernel, modelo usado pelo Linux e pelo Windows) e **muitos-para-muitos** (várias threads de usuário distribuídas entre várias de kernel) (SILBERSCHATZ; GALVIN; GAGNE, 2018). O material da Aula 7 chama esse último modelo de threads híbridas, citando como exemplos o Solaris até a versão 8, o HP-UX e o Tru64 Unix (ROCHA, 2026). Para um servidor de ingressos que faz muitas operações de rede e banco de dados, threads de kernel ou modelos híbridos são mais adequados, porque uma requisição esperando o banco não trava as outras.
 
 ### 1.2. Diagnóstico do Problema (o gargalo)
 
 #### 1.2.1. O que é uma Condição de Corrida
 
-Uma **condição de corrida** (*race condition*) acontece quando duas ou mais threads acessam e modificam um mesmo dado compartilhado ao mesmo tempo, e o resultado final depende da ordem exata em que cada uma executa (TANENBAUM; BOS, 2016). Como o escalonador pode interromper uma thread em qualquer instrução e passar a CPU para outra, essa ordem é imprevisível, e o resultado pode ficar errado (JOHANN, 2011).
+Uma **condição de corrida** (*race condition*) acontece quando duas ou mais threads acessam e modificam um mesmo dado compartilhado ao mesmo tempo, e o resultado final depende da ordem exata em que cada uma executa (TANENBAUM; BOS, 2015). Como o escalonador pode interromper uma thread em qualquer instrução e passar a CPU para outra, essa ordem é imprevisível, e o resultado pode ficar errado (JOHANN, 2011). Na Aula 7, essa situação é descrita como uma disputa pelo recurso, em que o resultado depende de qual processo executa no momento propício (ROCHA, 2026).
 
 #### 1.2.2. O caso do Assento A-15
 
@@ -166,9 +166,9 @@ O mais perigoso é que esse erro é intermitente: em testes com poucos usuários
 
 #### 1.3.1. Região Crítica e Exclusão Mútua
 
-A **região crítica** é o trecho do código em que a thread acessa o recurso compartilhado. No caso estudado, é o trecho "ler status → verificar → marcar como vendido". A solução é garantir **exclusão mútua**: enquanto uma thread está dentro da região crítica de um recurso, nenhuma outra pode entrar na região crítica do mesmo recurso (GARCIA, 2017).
+A **região crítica** é o trecho do código em que a thread acessa o recurso compartilhado. No caso estudado, é o trecho "ler status → verificar → marcar como vendido". A solução é garantir **exclusão mútua**: enquanto uma thread está dentro da região crítica de um recurso, nenhuma outra pode entrar na região crítica do mesmo recurso (GARCIA, 2017). É a solução apresentada na Aula 7: impedir que mais de um processo leia e escreva em uma variável compartilhada ao mesmo tempo (ROCHA, 2026).
 
-Segundo Tanenbaum e Bos (2016), uma boa solução precisa atender a quatro condições:
+Segundo Tanenbaum e Bos (2015), uma boa solução precisa atender a quatro condições:
 
 1. Duas threads nunca podem estar ao mesmo tempo dentro da mesma região crítica.
 2. Não se pode fazer suposições sobre a velocidade ou o número de CPUs.
@@ -264,8 +264,12 @@ OLIVEIRA, Rômulo Silva de; CARISSIMI, Alexandre da Silva; TOSCANI, Simão Sirin
 
 <br><br>
 
-SILBERSCHATZ, Abraham; GALVIN, Peter Baer; GAGNE, Greg. **Fundamentos de sistemas operacionais**. 9. ed. Rio de Janeiro: LTC, 2015.
+ROCHA, Leonardo. **Sistemas operacionais**: o modelo de processos. Londrina: UniCesumar, 2026. Material de aula (Aula 7), slides.
 
 <br><br>
 
-TANENBAUM, Andrew S.; BOS, Herbert. **Sistemas operacionais modernos**. 4. ed. São Paulo: Pearson Education do Brasil, 2016.
+SILBERSCHATZ, Abraham; GALVIN, Peter Baer; GAGNE, Greg. **Fundamentos de sistemas operacionais**. 9. ed. Rio de Janeiro: LTC, 2018.
+
+<br><br>
+
+TANENBAUM, Andrew S.; BOS, Herbert. **Sistemas operacionais modernos**. 4. ed. São Paulo: Pearson, 2015.
